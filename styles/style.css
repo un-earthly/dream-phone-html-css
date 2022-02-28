@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Quicksand:wght@400;500&display=swap');
+/* 
+    FONT FAMILY RESET
+*/
+*{
+    font-family: 'Quicksand', sans-serif;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'League Gothic', sans-serif;
+}
+
+/* 
+    FONT FAMILY RESET
+*/
