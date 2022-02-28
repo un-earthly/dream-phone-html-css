@@ -26,6 +26,12 @@ CLASS BASED CUSTOMIZATION
 .fullHeight{
     height: 80vh;
 }
+.card-img, .card-img-bottom, .card-img-top{
+    width: 50%;
+}
+.modal-body .card{
+    border: none;
+}
 /* 
 CLASS BASED CUSTOMIZATION
 */
