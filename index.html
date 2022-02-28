@@ -30,17 +30,56 @@
         FAVICON
      -->
 
-     <!-- 
+    <!-- 
          CSS
       -->
-      <link rel="stylesheet" href="./styles/style.css">
-     <!-- 
+    <link rel="stylesheet" href="./styles/style.css">
+    <!-- 
          CSS
       -->
     <title class="text-uppercase">LOOK UP FOR YOUR DREAM PHONE - AN API BASED SOLUTION</title>
 </head>
 
 <body>
+
+    <!--
+         MAIN CONTAIENR
+      -->
+
+
+    <div class="container p-4">
+        <!-- 
+                NAVBAR
+             -->
+
+        <div class="input-group mb-3">
+            <input type="text" id="phoneName" class="form-control border border-dark" placeholder="Phone Brand Name"
+                aria-label="Phone Brand Name" aria-describedby="findPhone">
+            <button class="btn btn-outline-dark" type="button" id="findPhone">Button</button>
+        </div>
+
+        <!-- 
+                NAVBAR
+             -->
+
+        <!-- 
+                SPINNER
+            -->
+        <div id="spinner" class="d-none flex-column justify-content-center align-items-center fullHeight">
+            <div class="spinner-border" role="status">
+            </div>
+            <span>Loading...</span>
+        </div>
+
+        <!-- 
+                SPINNER
+            -->
+
+
+    </div>
+
+
+    <!-- MAIN CONTAIENR  -->
 
 
 
