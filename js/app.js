@@ -135,8 +135,8 @@ const fetchedPhones = (phones) => {
         `;
             getElement('cardHolder').appendChild(div);
         });
-        button.setAttribute('disabled', true);
-        button.innerText = 'Loaded All';
+        button.classList.remove('d-block')
+        button.classList.add('d-none')
     });
     getElement('wrapper').appendChild(button);
 
@@ -165,20 +165,21 @@ const modal = (data) => {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="${data.image}" class="img-fluid rounded-start" alt="${data.name}">
+                        <div class="card mb-3">
+                            <div class="d-flex flex-column g-0">
+                                <div class="">
+                                    <img src="${data.image}" width="100%" class="img-fluid rounded-start" alt="${data.name}">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="">
                                     <div class="card-body p-0 ps-2">
                                         <h4 class="card-title">${data.name} From ${data.brand}</h4>
                                         <p class="card-text m-0"><small class="text-muted">${data.releaseDate ? data.releaseDate : 'Realease Date Will Be Available Soon'}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Chipset:${data.mainFeatures.chipSet}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Display:${data.mainFeatures.displaySize}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Memory:${data.mainFeatures.memory}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Storage:${data.mainFeatures.storage}</small></p>
-                                        <p class="card-text m-0" ><small class="text-dark">Other Features: ${data.mainFeatures.sensors}</small></p >
+                                        <p class="card-text m-0"><small class="text-dark">Chipset:${data.mainFeatures.chipSet ? data.mainFeatures.chipSet : 'Not Available'}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Display:${data.mainFeatures.displaySize ? data.mainFeatures.displaySize : 'Not Available' }</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Memory:${data.mainFeatures.memory ? data.mainFeatures.memory :"Not Available"}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Storage:${data.mainFeatures.storage ? data.mainFeatures.storage : "Not Available"}</small></p>
+                                        <p class="card-text m-0" ><small class="text-dark">Sensors: ${data.mainFeatures.sensors ? data.mainFeatures.sensors : "Not Available"}</small></p >
+                                        <p class="card-text m-0" ><small class="text-dark">Other Features: ${Object.entries(data.others ? data.others : "Not Available")}</small></p >
                                     </div >
                                 </div >
                             </div >
