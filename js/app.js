@@ -42,8 +42,6 @@ searchBtn.addEventListener('click', () => {
 
     getElement('cardHolder').innerHTML = "";
 
-
-    getElement('loadButton').remove();
     /*
             CLEANING DOM
         */
@@ -120,15 +118,16 @@ const fetchedPhones = (phones) => {
     /*
             BUTTON FUNCTUIONALITY 
         */
-    const button = document.createElement('button');
-    button.innerText = "Load All";
-    button.setAttribute('id', 'loadButton');
-    button.classList.add('btn', 'btn-outline-dark', 'mx-auto', 'my-3', 'd-block');
-    button.addEventListener('click', () => {
-        phones.slice(20).forEach((phone) => {
-            const div = document.createElement('div');
-            div.classList.add('d-flex', 'align-items-center', 'justify-content-center');
-            div.innerHTML = `
+    if (phones.length > 20) {
+        const button = document.createElement('button');
+        button.innerText = "Load All";
+        button.setAttribute('id', 'loadButton');
+        button.classList.add('btn', 'btn-outline-dark', 'mx-auto', 'my-3', 'd-block');
+        button.addEventListener('click', () => {
+            phones.slice(20).forEach((phone) => {
+                const div = document.createElement('div');
+                div.classList.add('d-flex', 'align-items-center', 'justify-content-center');
+                div.innerHTML = `
                 <div class="card border-dark p-0 w-100 text-center" >
                     <div class="card-header bg-transparent d-flex align-items-center justify-content-center">
                         <img src=${phone.image} class="card-img-top" width="200px"  alt="" />
@@ -144,12 +143,13 @@ const fetchedPhones = (phones) => {
                 </div>
             </div>
         `;
-            getElement('cardHolder').appendChild(div);
+                getElement('cardHolder').appendChild(div);
+            });
+            button.classList.remove('d-block')
+            button.classList.add('d-none')
         });
-        button.classList.remove('d-block')
-        button.classList.add('d-none')
-    });
-    getElement('wrapper').appendChild(button);
+        getElement('wrapper').appendChild(button);
+    }
 
 
     /* 
