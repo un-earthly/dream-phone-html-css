@@ -10,9 +10,9 @@ const getElement = (id) => document.getElementById(id);
 /* 
    SPINNER FUNCTION
 */
-const spinner = (classToRemove, classToAdd) => {
-    getElement('spinner').classList.remove(classToRemove)
-    getElement('spinner').classList.add(classToAdd)
+const togglingDisplay = (id, classToRemove, classToAdd) => {
+    getElement(id).classList.remove(classToRemove)
+    getElement(id).classList.add(classToAdd)
 }
 /* 
    SPINNER FUNCTION
@@ -31,10 +31,12 @@ searchBtn.addEventListener('click', () => {
     /* 
         SHOWING SPINNER
     */
-    spinner('d-none', 'd-flex')
+    togglingDisplay('spinner', 'd-none', 'd-flex')
     /* 
         SHOWING SPINNER
     */
+
+    getElement('cardHolder').innerHTML = "";
 
 
 });
@@ -52,16 +54,32 @@ searchBtn.addEventListener('click', () => {
 const fetchByName = (searchParam) => {
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchParam}`)
         .then(res => res.json())
-        .then(res => fetchedPhones(res.data));
+        .then((res) => {
+            if (res.data.length === 0 || res.data === []) {
+                togglingDisplay('error', 'd-none', 'd-flex')
+                getElement('cardHolder').innerHTML = "";
+                /* 
+                        REMOVING SPINNER
+                    */
+                togglingDisplay('spinner', 'd-flex', 'd-none');
+                /*
+                        REMOVING SPINNER
+                    */
+            } else {
+                fetchedPhones(res.data)
+                togglingDisplay('error', 'd-flex', 'd-none')
+            }
+        })
+
 
 }
 
 /* 
-    INVOKING FETCHEDBYNAME FUNTION IN ORDER TO FETCH API AND SEND IT TO THE FETCHED FUNCTION TO SHOW IT IN THE DOM
-*/
+        INVOKING FETCHEDBYNAME FUNTION IN ORDER TO FETCH API AND SEND IT TO THE FETCHED FUNCTION TO SHOW IT IN THE DOM
+    */
 
 const fetchedPhones = (phones) => {
-    console.log(phones.slice(0, 20));
+    console.log(phones);
     phones.slice(0, 20).forEach((phone) => {
         const div = document.createElement('div');
         div.classList.add('d-flex', 'align-items-center', 'justify-content-center')
@@ -82,48 +100,55 @@ const fetchedPhones = (phones) => {
             </div>
         `
         getElement('cardHolder').appendChild(div);
-    })
+        /* 
+                REMOVING SPINNER
+            */
+        togglingDisplay('spinner', 'd-flex', 'd-none');
+        /*
+                REMOVING SPINNER
+            */
+    });
 
 
-    const button = document.createElement('button')
+    const button = document.createElement('button');
     button.innerText = "Load All";
-    button.classList.add('btn', ('btn-outline-dark'), 'mx-auto', 'my-3', 'd-block');
+    button.classList.add('btn', 'btn-outline-dark', 'mx-auto', 'my-3', 'd-block');
     button.addEventListener('click', () => {
         phones.slice(20).forEach((phone) => {
             const div = document.createElement('div');
             div.classList.add('d-flex', 'align-items-center', 'justify-content-center');
             div.innerHTML = `
-            <div class="card border-dark p-0 w-100 text-center" >
-                <div class="card-header bg-transparent d-flex align-items-center justify-content-center">
-                    <img src=${phone.image} class="card-img-top" width="200px"  alt="" />
-                </div>
-                <div class="card-body text-dark">
-                    <h5 class="card-title">${phone.phone_name}</h5>
-                    <p class="card-text">${phone.brand}</p>
-                </div>
+                <div class="card border-dark p-0 w-100 text-center" >
+                    <div class="card-header bg-transparent d-flex align-items-center justify-content-center">
+                        <img src=${phone.image} class="card-img-top" width="200px"  alt="" />
+                    </div>
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">${phone.phone_name}</h5>
+                        <p class="card-text">${phone.brand}</p>
+                    </div>
                 <div class="card-footer bg-transparent">
                 <button
-                 type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                 onclick="detailsUsingSlug('${phone.slug}')" class="btn btn-outline-dark d-block mx-auto">Show More</button>
+                    type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                    onclick="detailsUsingSlug('${phone.slug}')" class="btn btn-outline-dark d-block mx-auto">Show More</button>
                 </div>
             </div>
         `;
             getElement('cardHolder').appendChild(div);
-        })
+        });
         button.setAttribute('disabled', true);
         button.innerText = 'Loaded All';
-    })
-    getElement('wrapper').appendChild(button)
+    });
+    getElement('wrapper').appendChild(button);
 
 
     /* 
-        REMOVING SPINNER
-    */
-    spinner('d-flex', 'd-none');
+            REMOVING SPINNER
+        */
+    togglingDisplay('spinner', 'd-flex', 'd-none');
     /*
-        REMOVING SPINNER
-    */
-}
+            REMOVING SPINNER
+        */
+};
 
 
 
@@ -146,26 +171,29 @@ const modal = (data) => {
                                     <img src="${data.image}" class="img-fluid rounded-start" alt="${data.name}">
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${data.name} From ${data.brand}</h5>
-                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <div class="card-body p-0 ps-2">
+                                        <h4 class="card-title">${data.name} From ${data.brand}</h4>
+                                        <p class="card-text m-0"><small class="text-muted">${data.releaseDate ? data.releaseDate : 'Realease Date Will Be Available Soon'}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Chipset:${data.mainFeatures.chipSet}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Display:${data.mainFeatures.displaySize}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Memory:${data.mainFeatures.memory}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Storage:${data.mainFeatures.storage}</small></p>
+                                        <p class="card-text m-0" ><small class="text-dark">Other Features: ${data.mainFeatures.sensors}</small></p >
+                                    </div >
+                                </div >
+                            </div >
+                        </div >
+                    </div >
                     <div class="modal-footer">
                         <button type="button" class="btn-close d-block mx-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                </div >
+            </div >
 
-                </div>
-            </div>
-    
     `
     let myModal = new bootstrap.Modal(document.getElementById('modal'), {
         keyboard: false
     })
     myModal.show()
 
-}
+};
