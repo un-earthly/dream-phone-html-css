@@ -55,8 +55,8 @@ searchBtn.addEventListener('click', () => {
 
 
 /* 
-    INVOKING FETCHEDBYNAME FUNTION IN ORDER TO FETCH API AND SEND IT TO THE FETCHED FUNCTION TO SHOW IT IN THE DOM
-*/
+        INVOKING FETCHEDBYNAME FUNTION IN ORDER TO FETCH API AND SEND IT TO THE FETCHED FUNCTION TO SHOW IT IN THE DOM
+    */
 const fetchByName = (searchParam) => {
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchParam}`)
         .then(res => res.json())
@@ -162,13 +162,22 @@ const fetchedPhones = (phones) => {
 };
 
 
-
+/*
+        FETCHING DATA ON BUTTON CLICK
+    */
 const detailsUsingSlug = (id) => {
     fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
         .then(res => res.json())
         .then(res => modal(res.data))
 }
+/*
+        FETCHING DATA ON BUTTON CLICK
+    */
 
+
+/*
+        MODAL DETAILS
+    */
 const modal = (data) => {
     console.log(data)
 
@@ -209,3 +218,6 @@ const modal = (data) => {
     myModal.show()
 
 };
+    /*
+    MODAL DETAILS
+*/
