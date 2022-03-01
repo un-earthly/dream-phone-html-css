@@ -1,27 +1,27 @@
 /* 
-    GETTING ELEMENT WITH ID
-*/
+        GETTING ELEMENT WITH ID
+    */
 const getElement = (id) => document.getElementById(id);
 /* 
-    GETTING ELEMENT WITH ID
-*/
+        GETTING ELEMENT WITH ID
+    */
 
 
 /* 
-   SPINNER FUNCTION
-*/
+    SPINNER FUNCTION
+    */
 const togglingDisplay = (id, classToRemove, classToAdd) => {
     getElement(id).classList.remove(classToRemove)
     getElement(id).classList.add(classToAdd)
 }
 /* 
-   SPINNER FUNCTION
-*/
+    SPINNER FUNCTION
+    */
 
 
 /* 
-    GETTING SRARCH INPUT VALUE 
-*/
+        GETTING SRARCH INPUT VALUE 
+    */
 const searchBtn = getElement('findPhone');
 searchBtn.addEventListener('click', () => {
     const userAskedPhoneName = getElement('phoneName');
@@ -29,16 +29,24 @@ searchBtn.addEventListener('click', () => {
     userAskedPhoneName.value = "";
 
     /* 
-        SHOWING SPINNER
-    */
+            SHOWING SPINNER
+        */
     togglingDisplay('spinner', 'd-none', 'd-flex')
     /* 
-        SHOWING SPINNER
-    */
+            SHOWING SPINNER
+        */
+
+    /* 
+            CLEANING DOM 
+        */
 
     getElement('cardHolder').innerHTML = "";
 
 
+    getElement('loadButton').remove();
+    /*
+            CLEANING DOM
+        */
 });
 
 
@@ -109,9 +117,12 @@ const fetchedPhones = (phones) => {
             */
     });
 
-
+    /*
+            BUTTON FUNCTUIONALITY 
+        */
     const button = document.createElement('button');
     button.innerText = "Load All";
+    button.setAttribute('id', 'loadButton');
     button.classList.add('btn', 'btn-outline-dark', 'mx-auto', 'my-3', 'd-block');
     button.addEventListener('click', () => {
         phones.slice(20).forEach((phone) => {
@@ -175,8 +186,8 @@ const modal = (data) => {
                                         <h4 class="card-title">${data.name} From ${data.brand}</h4>
                                         <p class="card-text m-0"><small class="text-muted">${data.releaseDate ? data.releaseDate : 'Realease Date Will Be Available Soon'}</small></p>
                                         <p class="card-text m-0"><small class="text-dark">Chipset:${data.mainFeatures.chipSet ? data.mainFeatures.chipSet : 'Not Available'}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Display:${data.mainFeatures.displaySize ? data.mainFeatures.displaySize : 'Not Available' }</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Memory:${data.mainFeatures.memory ? data.mainFeatures.memory :"Not Available"}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Display:${data.mainFeatures.displaySize ? data.mainFeatures.displaySize : 'Not Available'}</small></p>
+                                        <p class="card-text m-0"><small class="text-dark">Memory:${data.mainFeatures.memory ? data.mainFeatures.memory : "Not Available"}</small></p>
                                         <p class="card-text m-0"><small class="text-dark">Storage:${data.mainFeatures.storage ? data.mainFeatures.storage : "Not Available"}</small></p>
                                         <p class="card-text m-0" ><small class="text-dark">Sensors: ${data.mainFeatures.sensors ? data.mainFeatures.sensors : "Not Available"}</small></p >
                                         <p class="card-text m-0" ><small class="text-dark">Other Features: ${Object.entries(data.others ? data.others : "Not Available")}</small></p >
