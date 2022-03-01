@@ -8,14 +8,14 @@ const getElement = (id) => document.getElementById(id);
 
 
 /* 
-    SPINNER FUNCTION
+        SPINNER FUNCTION
     */
 const togglingDisplay = (id, classToRemove, classToAdd) => {
     getElement(id).classList.remove(classToRemove)
     getElement(id).classList.add(classToAdd)
 }
 /* 
-    SPINNER FUNCTION
+        SPINNER FUNCTION
     */
 
 
@@ -50,8 +50,8 @@ searchBtn.addEventListener('click', () => {
 
 
 /* 
-    GETTING SRARCH INPUT VALUE 
-*/
+         GETTING SRARCH INPUT VALUE 
+    */
 
 
 /* 
@@ -85,7 +85,6 @@ const fetchByName = (searchParam) => {
     */
 
 const fetchedPhones = (phones) => {
-    console.log(phones);
     phones.slice(0, 20).forEach((phone) => {
         const div = document.createElement('div');
         div.classList.add('d-flex', 'align-items-center', 'justify-content-center')
@@ -179,27 +178,26 @@ const detailsUsingSlug = (id) => {
         MODAL DETAILS
     */
 const modal = (data) => {
-    console.log(data)
 
     document.getElementById('modal').innerHTML = `
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="card mb-3">
-                            <div class="d-flex flex-column g-0">
-                                <div class="">
+                            <div class="row g-0">
+                                <div class="col-md-4 d-flex align-items-center">
                                     <img src="${data.image}" width="100%" class="img-fluid rounded-start" alt="${data.name}">
                                 </div>
-                                <div class="">
+                                <div class="col-md-8">
                                     <div class="card-body p-0 ps-2">
                                         <h4 class="card-title">${data.name} From ${data.brand}</h4>
-                                        <p class="card-text m-0"><small class="text-muted">${data.releaseDate ? data.releaseDate : 'Realease Date Will Be Available Soon'}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Chipset:${data.mainFeatures.chipSet ? data.mainFeatures.chipSet : 'Not Available'}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Display:${data.mainFeatures.displaySize ? data.mainFeatures.displaySize : 'Not Available'}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Memory:${data.mainFeatures.memory ? data.mainFeatures.memory : "Not Available"}</small></p>
-                                        <p class="card-text m-0"><small class="text-dark">Storage:${data.mainFeatures.storage ? data.mainFeatures.storage : "Not Available"}</small></p>
-                                        <p class="card-text m-0" ><small class="text-dark">Sensors: ${data.mainFeatures.sensors ? data.mainFeatures.sensors : "Not Available"}</small></p >
-                                        <p class="card-text m-0" ><small class="text-dark">Other Features: ${Object.entries(data.others ? data.others : "Not Available")}</small></p >
+                                        <p class="card-text m-0 text-info fw-bold"><small class="text-muted">${data.releaseDate ? data.releaseDate : 'Realease Date Will Be Available Soon'}</small></p>
+                                        <p class="card-text m-0 text-info fw-bold">Chipset:<small class="text-dark">${data.mainFeatures.chipSet ? data.mainFeatures.chipSet : 'Not Available'}</small></p>
+                                        <p class="card-text m-0 text-info fw-bold">Display:<small class="text-dark">${data.mainFeatures.displaySize ? data.mainFeatures.displaySize : 'Not Available'}</small></p>
+                                        <p class="card-text m-0 text-info fw-bold">Memory:<small class="text-dark">${data.mainFeatures.memory ? data.mainFeatures.memory : "Not Available"}</small></p>
+                                        <p class="card-text m-0 text-info fw-bold">Storage:<small class="text-dark">${data.mainFeatures.storage ? data.mainFeatures.storage : "Not Available"}</small></p>
+                                        <p class="card-text m-0 text-info fw-bold" >Sensors: <small class="text-dark">${data.mainFeatures.sensors ? data.mainFeatures.sensors : "Not Available"}</small></p >
+                                        <p class="card-text m-0 text-info fw-bold" >Other Features: <small class="text-dark">${Object.entries(data.others ? data.others : "Not Available")}</small></p >
                                     </div >
                                 </div >
                             </div >
@@ -219,5 +217,5 @@ const modal = (data) => {
 
 };
     /*
-    MODAL DETAILS
+MODAL DETAILS
 */
